@@ -206,6 +206,9 @@ namespace ble.net.sampleapp.viewmodel
          RaisePropertyChanged( nameof(NotifyEnabled) );
       }
 
+      /**
+       * 读取该 Characteristic 的内容.
+       **/
       private async Task ReadCharacteristicValue()
       {
          IsBusy = true;
@@ -220,6 +223,9 @@ namespace ble.net.sampleapp.viewmodel
          IsBusy = false;
       }
 
+      /**
+       * 转化为 16 进制或 UTF-8 的文字.
+       **/
       private void UpdateDisplayedValue( Byte[] bytes )
       {
          ValueAsHex = bytes.EncodeToBase16String();

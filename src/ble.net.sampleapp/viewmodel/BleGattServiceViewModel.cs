@@ -26,6 +26,7 @@ namespace ble.net.sampleapp.viewmodel
       public BleGattServiceViewModel( Guid service, IBleGattServerConnection gattServer, IUserDialogs dialogManager )
       {
          m_serviceGuid = service;
+         // ListView 中的 Cell 的内容
          Characteristic = new ObservableCollection<BleGattCharacteristicViewModel>();
          m_gattServer = gattServer;
          m_dialogManager = dialogManager;

@@ -103,6 +103,7 @@ namespace ble.net.sampleapp.viewmodel
          await CloseConnection();
          IsBusy = true;
 
+         // 开始连接设备
          var connection = await m_bleAdapter.ConnectToDevice(
             device: m_peripheral.Model,
             timeout: TimeSpan.FromSeconds( CONNECTION_TIMEOUT_SECONDS ),
@@ -127,6 +128,7 @@ namespace ble.net.sampleapp.viewmodel
             Connection = "Reading Services";
             try
             {
+               // 取得服务的列表.
                var services = (await m_gattServer.ListAllServices()).ToList();
                foreach(var serviceId in services)
                {
@@ -151,6 +153,7 @@ namespace ble.net.sampleapp.viewmodel
                m_dialogManager.Toast( ex.Message, TimeSpan.FromSeconds( 3 ) );
             }
          }
+         //如果连接不成功
          else
          {
             String errorMsg;
@@ -172,6 +175,9 @@ namespace ble.net.sampleapp.viewmodel
          IsBusy = false;
       }
 
+      /***
+      更新 ViewModel 中的 peripheral 信息.
+      ***/
       public async Task Update( BlePeripheralViewModel peripheral )
       {
          if(m_peripheral != null && !m_peripheral.Model.Equals( peripheral.Model ))
@@ -181,7 +187,9 @@ namespace ble.net.sampleapp.viewmodel
 
          m_peripheral = peripheral;
       }
-
+      /**
+       * 关闭连接
+      **/     
       private async Task CloseConnection()
       {
          IsBusy = true;

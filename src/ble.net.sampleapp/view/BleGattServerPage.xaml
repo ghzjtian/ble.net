@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"
+<?xml version="1.0"
       encoding="utf-8"?>
 
 <util:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
@@ -13,10 +13,12 @@
 
       <Grid HorizontalOptions="FillAndExpand"
             VerticalOptions="Center">
+<!--       两列  -->
          <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
          </Grid.ColumnDefinitions>
+         
          <StackLayout Orientation="Vertical"
                       VerticalOptions="Center"
                       HorizontalOptions="StartAndExpand"

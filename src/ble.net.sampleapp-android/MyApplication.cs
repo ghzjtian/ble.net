@@ -18,6 +18,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Application = Android.App.Application;
 using Log = Android.Util.Log;
+using Debug = System.Diagnostics.Debug;
 
 namespace ble.net.sampleapp.android
 {
@@ -38,6 +39,7 @@ namespace ble.net.sampleapp.android
 
       public override void OnCreate()
       {
+         Debug.WriteLine("MyApplication  OnCreate()");
          // ReSharper disable once ConditionIsAlwaysTrueOrFalse
          // ReSharper disable once InvertIf
          if(IS_DEBUG)
@@ -92,6 +94,8 @@ namespace ble.net.sampleapp.android
 
       protected override void OnCreate( Bundle bundle )
       {
+         Debug.WriteLine("MainActivity  OnCreate()");
+
          TabLayoutResource = Resource.Layout.Tabbar;
          ToolbarResource = Resource.Layout.Toolbar;
 
@@ -102,6 +106,7 @@ namespace ble.net.sampleapp.android
 
          // If you want to enable/disable the Bluetooth adapter from code, you must call this.
          BluetoothLowEnergyAdapter.Init( this );
+       
          // Obtain the bluetooth adapter so we can pass it into our (shared-code) Xamarin Forms app. There are
          // additional Obtain() methods on BluetoothLowEnergyAdapter if you have more specific needs (e.g. if you
          // need to support devices with multiple Bluetooth adapters)

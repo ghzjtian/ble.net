@@ -44,10 +44,13 @@ namespace ble.net.sampleapp
             onSelectDevice: async p =>
             {
                await bleGattServerViewModel.Update( p );
+               // 点击了 连接 后，跳转到 设备的 Server 的页面.
                await m_rootPage.PushAsync(
                   new BleGattServerPage(
                      model: bleGattServerViewModel,
+                     //点击了 ListView 中的 Service 后，跳转到 Service 页.
                      bleServiceSelected: async s => { await m_rootPage.PushAsync( new BleGattServicePage( s ) ); } ) );
+
                await bleGattServerViewModel.OpenConnection();
             } );
 
@@ -55,6 +58,7 @@ namespace ble.net.sampleapp
             new TabbedPage
             {
                Title = "BLE.net Sample App",
+               // Tab 中的 Scan View 和 Log View.
                Children = {new BleDeviceScannerPage( bleScanViewModel ), new LogsPage( logsVm )}
             } );
 

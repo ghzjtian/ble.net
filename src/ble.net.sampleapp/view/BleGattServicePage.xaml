@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"
+<?xml version="1.0"
       encoding="utf-8"?>
 
 <util:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
@@ -51,6 +51,7 @@
 
                         <Grid HorizontalOptions="FillAndExpand"
                               VerticalOptions="CenterAndExpand">
+<!--                          三列 -->
                            <Grid.ColumnDefinitions>
                               <ColumnDefinition />
                               <ColumnDefinition />
@@ -94,10 +95,12 @@
                         </Grid>
 
                         <Grid>
+<!--                          两列 -->
                            <Grid.ColumnDefinitions>
                               <ColumnDefinition Width="Auto" />
                               <ColumnDefinition Width="*" />
                            </Grid.ColumnDefinitions>
+<!--                         两行  -->
                            <Grid.RowDefinitions>
                               <RowDefinition Height="Auto" />
                               <RowDefinition Height="Auto" />

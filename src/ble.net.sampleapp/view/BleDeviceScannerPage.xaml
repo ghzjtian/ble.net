@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"
+<?xml version="1.0"
       encoding="utf-8"?>
 
 <util:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
@@ -42,7 +42,8 @@
                     Toggled="Switch_OnToggled" />
          </StackLayout>
       </StackLayout>
-
+      
+<!--   显示扫描到的设备   -->
       <ListView ItemsSource="{Binding FoundDevices}"
                 ItemTapped="ListView_OnItemTapped"
                 ItemSelected="ListView_OnItemSelected"
@@ -88,10 +89,12 @@
                      </StackLayout>-->
 
                      <Grid RowSpacing="5">
+<!--                       两列 -->
                         <Grid.ColumnDefinitions>
                            <ColumnDefinition Width="Auto" />
                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+<!--                      七排  -->
                         <Grid.RowDefinitions>
                            <RowDefinition Height="Auto" />
                            <RowDefinition Height="Auto" />

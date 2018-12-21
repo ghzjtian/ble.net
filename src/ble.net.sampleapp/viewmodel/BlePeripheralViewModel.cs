@@ -17,9 +17,7 @@ using Xamarin.Forms;
 
 namespace ble.net.sampleapp.viewmodel
 {
-   public class BlePeripheralViewModel
-      : BaseViewModel,
-        IEquatable<IBlePeripheral>
+   public class BlePeripheralViewModel : BaseViewModel,IEquatable<IBlePeripheral>
    {
       private Boolean m_isExpanded;
 

@@ -2,7 +2,7 @@
 * 1.可以编译通过，且运行.
 * 2.用到的第三方框架:
   * 1.[Acr.UserDialogs](https://github.com/aritchie/userdialogs)
-  * 2.[nexus.core](https://github.com/aritchie/userdialogs)
+  * 2.[nexus.core](https://github.com/nexussays/nexus.core)
 
 
 ***
