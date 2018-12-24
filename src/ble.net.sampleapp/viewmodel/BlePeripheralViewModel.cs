@@ -48,6 +48,7 @@ namespace ble.net.sampleapp.viewmodel
 
       public String DeviceName => Model.Advertisement.DeviceName;
 
+      //[标准数字格式字符串](https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/standard-numeric-format-strings)
       public String Flags => Model.Advertisement?.Flags.ToString( "G" );
 
       public String Id => Model.DeviceId.ToString();
@@ -96,6 +97,7 @@ namespace ble.net.sampleapp.viewmodel
          return Model.GetHashCode();
       }
 
+      //通知改变状态
       public void Update( IBlePeripheral model )
       {
          if(!Equals( Model, model ))

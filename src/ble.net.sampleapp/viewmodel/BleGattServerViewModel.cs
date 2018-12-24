@@ -41,8 +41,7 @@ namespace ble.net.sampleapp.viewmodel
 
       public String Address => m_peripheral?.Address;
 
-      public String AddressAndName =>
-         m_peripheral?.AddressAndName; //Address + " / " + (DeviceName ?? "<no device name>");
+      public String AddressAndName => m_peripheral?.AddressAndName; //Address + " / " + (DeviceName ?? "<no device name>");
 
       public String Connection
       {
@@ -108,6 +107,7 @@ namespace ble.net.sampleapp.viewmodel
             device: m_peripheral.Model,
             timeout: TimeSpan.FromSeconds( CONNECTION_TIMEOUT_SECONDS ),
             progress: progress => { Connection = progress.ToString(); } );
+         //连接成功
          if(connection.IsSuccessful())
          {
             m_gattServer = connection.GattServer;
@@ -173,6 +173,10 @@ namespace ble.net.sampleapp.viewmodel
          }
 
          IsBusy = false;
+
+
+
+
       }
 
       /***

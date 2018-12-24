@@ -43,6 +43,7 @@ namespace ble.net.sampleapp
             dialogs: dialogs,
             onSelectDevice: async p =>
             {
+               //更新 Server 中的设备信息
                await bleGattServerViewModel.Update( p );
                // 点击了 连接 后，跳转到 设备的 Server 的页面.
                await m_rootPage.PushAsync(
@@ -51,6 +52,7 @@ namespace ble.net.sampleapp
                      //点击了 ListView 中的 Service 后，跳转到 Service 页.
                      bleServiceSelected: async s => { await m_rootPage.PushAsync( new BleGattServicePage( s ) ); } ) );
 
+               //连接设备
                await bleGattServerViewModel.OpenConnection();
             } );
 

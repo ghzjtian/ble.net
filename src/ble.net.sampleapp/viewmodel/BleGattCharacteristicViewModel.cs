@@ -239,6 +239,9 @@ namespace ble.net.sampleapp.viewmodel
          }
       }
 
+      /**
+       * 往 Chara 中写入内容
+       **/
       private async Task WriteCurrentBytes()
       {
          var w = m_writeValue;
