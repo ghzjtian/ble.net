@@ -13,6 +13,7 @@ using Acr.UserDialogs;
 using ble.net.sampleapp.util;
 using nexus.core;
 using nexus.core.logging;
+using nexus.core.text;
 using nexus.protocols.ble;
 using nexus.protocols.ble.gatt;
 using Xamarin.Forms;
@@ -112,7 +113,7 @@ namespace ble.net.sampleapp.viewmodel
          {
             m_gattServer = connection.GattServer;
             Log.Debug( "Connected to device. id={0} status={1}", m_peripheral.Id, m_gattServer.State );
-
+            //See & Observe server connection Status
             m_gattServer.Subscribe(
                async c =>
                {
@@ -128,11 +129,13 @@ namespace ble.net.sampleapp.viewmodel
             Connection = "Reading Services";
             try
             {
-               // 取得服务的列表.
+               // 取得服务的列表. Enumerate all services on the GATT Server
                var services = (await m_gattServer.ListAllServices()).ToList();
                foreach(var serviceId in services)
                {
-                  if(Services.Any( viewModel => viewModel.Guid.Equals( serviceId ) ))
+                  System.Diagnostics.Debug.WriteLine("serviceId:"+ serviceId.ToString()+  " HasCode:"+serviceId.GetHashCode());
+
+                  if (Services.Any( viewModel => viewModel.Guid.Equals( serviceId ) ))
                   {
                      continue;
                   }
@@ -207,5 +210,58 @@ namespace ble.net.sampleapp.viewmodel
          Services.Clear();
          IsBusy = false;
       }
+
+      //////////////////////////////////////
+
+
+      /**
+     * 转化为 16 进制或 UTF-8 的文字.
+     **/
+      private string UpdateDisplayedValue(Byte[] bytes)
+      {
+        String ValueAsHex = bytes.EncodeToBase16String();
+         String ValueAsString = String.Empty;
+         try
+         {
+            ValueAsString = bytes.AsUtf8String();
+         }
+         catch
+         {
+            ValueAsString = String.Empty;
+         }
+         return ValueAsString;
+      }
+
+      /**
+       * 往 Chara 中写入内容
+       **/
+      private async Task WriteCurrentBytes(string m_writeValue, Guid m_serviceGuid, Guid m_characteristicGuid)
+      {
+         var w = m_writeValue;
+         if (!w.IsNullOrEmpty())
+         {
+            var val = w.DecodeAsBase16();
+            try
+            {
+               IsBusy = true;
+               var writeTask = m_gattServer.WriteCharacteristicValue(m_serviceGuid, m_characteristicGuid, val);
+               // notify UI to clear written value from input field
+               //WriteValue = "";
+               // update the characteristic value with the awaited results of the write
+               UpdateDisplayedValue(await writeTask);
+            }
+            catch (GattException ex)
+            {
+               Log.Warn(ex.ToString());
+               m_dialogManager.Toast(ex.Message);
+            }
+            finally
+            {
+               IsBusy = false;
+            }
+         }
+      }
+      //////////////////////////////////////
+
    }
 }

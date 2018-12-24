@@ -16,6 +16,7 @@ using nexus.core.logging;
 using nexus.protocols.ble;
 using nexus.protocols.ble.scan;
 using Xamarin.Forms;
+using System.Collections.Generic;
 
 namespace ble.net.sampleapp.viewmodel
 {
@@ -73,21 +74,32 @@ namespace ble.net.sampleapp.viewmodel
                return IsScanning;
             });
 
+
          // 开始扫描附近的蓝牙 ble 设备.
          await m_bleAdapter.ScanForBroadcasts(
-            // NOTE:
-            //
-            // You can provide a scan filter to look for particular devices. See Readme.md for more information
-            // e.g.:
-            //    new ScanFilter().SetAdvertisedManufacturerCompanyId( 224 /*Google*/ ),
-            //
-            // You can also specify additional scan settings like the amount of power to direct to the Bluetooth antenna:
-            // e.g.:
-            //    new ScanSettings()
-            //    {
-            //       Mode = ScanMode.LowPower,
-            //       Filter = new ScanFilter().SetAdvertisedManufacturerCompanyId( 224 /*Google*/ )
-            //    },
+                // NOTE:
+                //
+                // You can provide a scan filter to look for particular devices. See Readme.md for more information
+                // e.g.:
+                //    new ScanFilter().SetAdvertisedManufacturerCompanyId( 224 /*Google*/ ),
+                //
+                // You can also specify additional scan settings like the amount of power to direct to the Bluetooth antenna:
+                // e.g.:
+
+                new ScanSettings()
+                {
+                   Mode = ScanMode.LowPower,
+                   //Filter = new ScanFilter().SetAdvertisedManufacturerCompanyId(224 /*Google*/ )
+
+
+                   Filter = new ScanFilter() {
+                      //只扫描 固定名字 的设备,但不知道怎么扫描 一个数组名字 的设备.
+                      //AdvertisedDeviceName = "Cramer",
+                     
+
+                   },
+                   IgnoreRepeatBroadcasts = false
+                },
             peripheral =>
             {
                Device.BeginInvokeOnMainThread(
@@ -101,6 +113,8 @@ namespace ble.net.sampleapp.viewmodel
                      }
                      else
                      {
+                        System.Diagnostics.Debug.WriteLine("peripheral Name:"+peripheral.Advertisement.DeviceName);
+
                         FoundDevices.Add(new BlePeripheralViewModel(peripheral, m_onSelectDevice));
                      }
                   });

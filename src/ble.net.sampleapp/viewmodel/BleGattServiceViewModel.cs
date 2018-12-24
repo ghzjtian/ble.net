@@ -13,6 +13,7 @@ using nexus.core;
 using nexus.core.logging;
 using nexus.protocols.ble;
 using nexus.protocols.ble.gatt;
+using Debug = System.Diagnostics.Debug;
 
 namespace ble.net.sampleapp.viewmodel
 {
@@ -25,13 +26,15 @@ namespace ble.net.sampleapp.viewmodel
 
       public BleGattServiceViewModel( Guid service, IBleGattServerConnection gattServer, IUserDialogs dialogManager )
       {
+         Debug.WriteLine("Services:"+ service!=null?service.ToString():"null"+ " m_gattServer:"+ (m_gattServer!=null?m_gattServer.ToString():"null"));
+
          m_serviceGuid = service;
-         // ListView 中的 Cell 的内容
          Characteristic = new ObservableCollection<BleGattCharacteristicViewModel>();
          m_gattServer = gattServer;
          m_dialogManager = dialogManager;
       }
 
+      // ListView 中的 Cell 的内容
       public ObservableCollection<BleGattCharacteristicViewModel> Characteristic { get; }
 
       public Guid Guid => m_serviceGuid;
@@ -48,6 +51,7 @@ namespace ble.net.sampleapp.viewmodel
 
       public String PageTitle => GetServiceName( m_serviceGuid ) ?? Id;
 
+      //进入 Service 页后就开始读取 Characteristic
       public override async void OnAppearing()
       {
          if(IsBusy || Characteristic.Count >= 1)
@@ -57,6 +61,7 @@ namespace ble.net.sampleapp.viewmodel
          IsBusy = true;
          try
          {
+            //Enumerate all characteristics of a service
             var services = await m_gattServer.ListServiceCharacteristics( m_serviceGuid );
             var list = services?.ToList();
             if(list != null)

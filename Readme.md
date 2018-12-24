@@ -1,9 +1,16 @@
 # Ifo
-* 1.可以编译通过，且运行.
-* 2.用到的第三方框架:
+### 1.可以编译通过，且运行.
+### 2.用到的第三方框架:
   * 1.[Acr.UserDialogs](https://github.com/aritchie/userdialogs)
   * 2.[nexus.core](https://github.com/nexussays/nexus.core)
+### 3.GLB Battery 的信息.
 
+```
+Generic Access Service:00001800-0000-1000-8000-00805f9b34fb
+Generic Attribute: 00001801-0000-1000-8000-00805f9b34fb
+Data Transfer Service:6e400001-b5a3-f393-e0a9-e50d13cbbc8a
+Device Firmware Updte Service:00001530-1212-efde-1523-785feabcd123
+```
 
 ***
 ***

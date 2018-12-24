@@ -16,6 +16,7 @@ using nexus.core.text;
 using nexus.protocols.ble;
 using nexus.protocols.ble.gatt;
 using Xamarin.Forms;
+using Debug = System.Diagnostics.Debug;
 
 namespace ble.net.sampleapp.viewmodel
 {
@@ -36,6 +37,9 @@ namespace ble.net.sampleapp.viewmodel
       public BleGattCharacteristicViewModel( Guid serviceGuid, Guid characteristicGuid,
                                              IBleGattServerConnection gattServer, IUserDialogs dialogManager )
       {
+
+         Debug.WriteLine("serviceGuid:" + serviceGuid==null?"null":serviceGuid.ToString()+ " characteristicGuid:"+ characteristicGuid==null?"null":characteristicGuid.ToString()+ " gattServer:"+ gattServer==null?"null": gattServer.ToString());
+
          m_gattServer = gattServer;
          m_dialogManager = dialogManager;
          m_serviceGuid = serviceGuid;
@@ -167,8 +171,8 @@ namespace ble.net.sampleapp.viewmodel
             var vals = "";
             foreach(var desc in descriptors)
             {
-               vals += desc + ": " +
-                       await m_gattServer.ReadDescriptorValue( m_serviceGuid, m_characteristicGuid, desc ) + "\n";
+               //Read a characteristic
+               vals += desc + ": " + await m_gattServer.ReadDescriptorValue( m_serviceGuid, m_characteristicGuid, desc ) + "\n";
             }
             DescriptorValues = vals;
          }
@@ -193,6 +197,7 @@ namespace ble.net.sampleapp.viewmodel
          {
             try
             {
+               //Listen for notifications on a characteristic
                m_notificationSubscription = m_gattServer.NotifyCharacteristicValue(
                   m_serviceGuid,
                   m_characteristicGuid,
